@@ -1,5 +1,50 @@
 {% extends "base.html "%}
 <!-- Rreshti i pare te html -->
 {% block content %}
-<h1>Hello Contact</h1>
+
+<div class="container">
+    <h1>Hello Contact</h1>
+    {% if messages %}
+    {% for message in messages%}
+    <div class="my-5 alert alert-{{message.tags}} {% if message.tags == 'error' %} bg-danger-subtle text-emphasis-danger {% endif %}" id="alertMessage" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form method="POST">
+        <!-- Tregon qe informacioni eshte i sigurte -->
+        {% csrf_token %}
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Ana" name="name">
+        </div>
+         <div>
+            <label for="surname">Last name</label>
+            <input type="text" id="surname" placeholder="Doe" name="lastName">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+        </div>
+        <div class="mb-3">
+            <label for="comment" class="form-label">Comment</label>
+             <textarea class="form-control" id="comment" rows="3" name="comment"></textarea>
+        </div>
+        <input type="submit" value="Send" class="btn btn-primary">
+    
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded" ,
+        function(){
+            const alertMessages = document.getElementById("alertMessage")
+            if(alertMessages){
+                setTimeout(()=>{
+                    const bsAlert = new bootstrap.Alert(alertMessages)
+                    bsAlert.close() 
+                },5000)
+            }
+        }
+    )
+</script>
 {% endblock %}

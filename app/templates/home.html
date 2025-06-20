@@ -6,4 +6,28 @@
     <img src="{% static 'image/bird8.png' %}" alt=" " class="bird">
 </div>
 <h1>Hello World</h1>
+<div class="container">
+    <h1>All Items</h1>
+    <div class="row">
+        <!-- Emri i variablit mund te jete si te duam ne por sugjerohet si te modeli por pa s -->
+         {% comment %}
+         Komente Django
+         items eshte emri i key duhet patjeter si te modeli
+         {% endcomment %}
+        {% for item in items %}
+         <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+                <img src="{{item.item_image.url}}" class="card-img-top h-100" alt="...">
+                <div class="card-body h-100">
+                    <!-- Emri i variablit cfare do qe kemi te for -->
+                     <!-- itema_name ehste emri i fushes te mdoeli  -->
+                <h5 class="card-title">{{item.item_name}}</h5>
+                <p class="card-text">{{item.item_description}}</p>
+                <a href="{% url 'detalisItemPage' item.pk %}" class="btn btn-primary">Go somewhere</a>
+            </div>
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
